@@ -232,3 +232,106 @@
     transition: none;
   }
 }
+
+/* ---------- Footer ---------- */
+.pp-footer__grid {
+  display: grid;
+  gap: 3.2rem;
+}
+@media screen and (min-width: 750px) {
+  .pp-footer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media screen and (min-width: 990px) {
+  .pp-footer__grid {
+    grid-template-columns: minmax(0, 1.4fr);
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    gap: 4rem;
+  }
+}
+.pp-footer__logo {
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+.pp-footer__logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.pp-footer__heading {
+  margin: 0 0 1.6rem;
+  font-size: 1.3rem;
+  letter-spacing: 0.15rem;
+  text-transform: uppercase;
+  font-family: var(--font-body-family);
+  font-weight: 600;
+}
+.pp-footer__contact,
+.pp-footer__links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.8rem;
+  font-size: 1.4rem;
+}
+.pp-footer__contact address {
+  display: inline;
+  font-style: normal;
+}
+.pp-footer__label {
+  opacity: 0.7;
+  margin-right: 0.4rem;
+}
+.pp-footer a {
+  color: rgb(var(--color-foreground));
+  text-decoration: none;
+}
+.pp-footer a:hover,
+.pp-footer a:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+.pp-footer__text {
+  margin-top: 1.6rem;
+  font-size: 1.4rem;
+  opacity: 0.85;
+}
+.pp-footer__text > *:first-child {
+  margin-top: 0;
+}
+.pp-footer__newsletter {
+  margin-top: 1.6rem;
+  max-width: 36rem;
+}
+.pp-footer__social {
+  margin-top: 1.6rem;
+  justify-content: flex-start;
+}
+.pp-footer__bottom-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem 2.4rem;
+  padding-top: 1.6rem;
+  padding-bottom: 1.6rem;
+  font-size: 1.3rem;
+}
+.pp-footer__copyright {
+  margin: 0;
+}
+.pp-footer__policies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pp-footer__payment .list-payment {
+  margin: 0;
+  padding: 0;
+}

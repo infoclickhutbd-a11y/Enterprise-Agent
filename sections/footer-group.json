@@ -1,1 +1,53 @@
-{"name":"t:sections.footer.name","type":"footer","sections":{"footer":{"type":"footer","custom_css":[],"settings":{"color_scheme":"background-2","newsletter_enable":true,"newsletter_heading":"Stay in the Loop – Sign Up for Updates","enable_follow_on_shop":true,"show_social":true,"enable_country_selector":true,"enable_language_selector":true,"payment_enable":true,"show_policy":true,"margin_top":0,"padding_top":44,"padding_bottom":32}}},"order":["footer"]}
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "pp-footer",
+      "blocks": {
+        "brand": {
+          "type": "brand",
+          "settings": {
+            "logo_width": 160,
+            "show_phone": true,
+            "show_email": true,
+            "show_address": true,
+            "text": "<p>[Customer service hours, e.g. Monday to Friday, 9am to 5pm]</p>"
+          }
+        },
+        "menu_help": {
+          "type": "menu",
+          "settings": {
+            "heading": "Help",
+            "menu": "footer"
+          }
+        },
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {
+            "heading": "Join our community",
+            "text": "<p>Get cat grass growing tips, new products and offers by email.</p>",
+            "show_social": true
+          }
+        }
+      },
+      "block_order": [
+        "brand",
+        "menu_help",
+        "newsletter"
+      ],
+      "settings": {
+        "color_scheme": "background-2",
+        "bottom_color_scheme": "scheme-fdeda06f-3cbe-4d7f-9a60-97fdf191ce92",
+        "legal_name": "",
+        "show_policy": true,
+        "payment_enable": true,
+        "padding_top": 56,
+        "padding_bottom": 40
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

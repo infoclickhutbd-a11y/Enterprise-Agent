@@ -1,0 +1,278 @@
+{%- comment -%}
+  Petal and Pounce: Footer
+  Columns built from blocks: Brand & contact, Menu, Newsletter, Text.
+  Bottom bar: copyright, policy links (required for Google Merchant Center), payment icons.
+
+  Contact details come from Shopify admin (Settings → Store details) so they always
+  match checkout and should be kept identical to Google Merchant Center Business info.
+{%- endcomment -%}
+{{ 'pp-sections.css' | asset_url | stylesheet_tag }}
+{{ 'component-newsletter.css' | asset_url | stylesheet_tag }}
+{{ 'component-list-payment.css' | asset_url | stylesheet_tag }}
+{{ 'component-list-social.css' | asset_url | stylesheet_tag }}
+
+<footer class="pp-footer color-{{ section.settings.color_scheme }} gradient">
+  <div
+    class="page-width pp-section"
+    style="--pp-pt: {{ section.settings.padding_top }}px; --pp-pb: {{ section.settings.padding_bottom }}px;"
+  >
+    <div class="pp-footer__grid" style="--pp-cols: {{ section.blocks.size | at_least: 1 | at_most: 5 }};">
+      {%- for block in section.blocks -%}
+        <div class="pp-footer__col pp-footer__col--{{ block.type }}" {{ block.shopify_attributes }}>
+          {%- case block.type -%}
+            {%- when 'brand' -%}
+              {%- assign logo = block.settings.logo | default: settings.logo -%}
+              {%- if logo != blank -%}
+                {%- capture logo_style -%}max-width: {{ block.settings.logo_width }}px;{%- endcapture -%}
+                <a href="{{ routes.root_url }}" class="pp-footer__logo">
+                  {{
+                    logo
+                    | image_url: width: 400
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '200, 300, 400',
+                      sizes: '200px',
+                      style: logo_style,
+                      alt: shop.name
+                  }}
+                </a>
+              {%- else -%}
+                <p class="pp-footer__shop-name h3">{{ shop.name | escape }}</p>
+              {%- endif -%}
+
+              <ul class="pp-footer__contact list-unstyled" role="list">
+                {%- if block.settings.show_phone and shop.phone != blank -%}
+                  <li>
+                    <span class="pp-footer__label">Phone:</span>
+                    <a href="tel:{{ shop.phone | remove: ' ' }}">{{ shop.phone }}</a>
+                  </li>
+                {%- endif -%}
+                {%- if block.settings.show_email and shop.email != blank -%}
+                  <li>
+                    <span class="pp-footer__label">Email:</span>
+                    <a href="mailto:{{ shop.email }}">{{ shop.email }}</a>
+                  </li>
+                {%- endif -%}
+                {%- if block.settings.show_address and shop.address.address1 != blank -%}
+                  <li>
+                    <span class="pp-footer__label">Address:</span>
+                    <address>
+                      {{- shop.address.address1 -}}
+                      {%- if shop.address.address2 != blank %}, {{ shop.address.address2 }}{% endif -%}
+                      , {{ shop.address.city }}
+                      {%- if shop.address.zip != blank %}, {{ shop.address.zip }}{% endif -%}
+                      , {{ shop.address.country -}}
+                    </address>
+                  </li>
+                {%- endif -%}
+              </ul>
+              {%- if block.settings.text != blank -%}
+                <div class="pp-footer__text rte">{{ block.settings.text }}</div>
+              {%- endif -%}
+
+            {%- when 'menu' -%}
+              {%- assign menu = block.settings.menu -%}
+              {%- assign title = block.settings.heading | default: menu.title -%}
+              {%- if title != blank -%}
+                <h2 class="pp-footer__heading">{{ title | escape }}</h2>
+              {%- endif -%}
+              {%- if menu.links.size > 0 -%}
+                <ul class="pp-footer__links list-unstyled" role="list">
+                  {%- for link in menu.links -%}
+                    <li>
+                      <a
+                        href="{{ link.url }}"
+                        {% if link.current %}
+                          aria-current="page"
+                        {% endif %}
+                      >
+                        {{- link.title | escape -}}
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+
+            {%- when 'text' -%}
+              {%- if block.settings.heading != blank -%}
+                <h2 class="pp-footer__heading">{{ block.settings.heading | escape }}</h2>
+              {%- endif -%}
+              <div class="pp-footer__text rte">{{ block.settings.text }}</div>
+
+            {%- when 'newsletter' -%}
+              {%- if block.settings.heading != blank -%}
+                <h2 class="pp-footer__heading">{{ block.settings.heading | escape }}</h2>
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <div class="pp-footer__text rte">{{ block.settings.text }}</div>
+              {%- endif -%}
+              {%- form 'customer', id: 'ContactFooter', class: 'newsletter-form pp-footer__newsletter' -%}
+                <input type="hidden" name="contact[tags]" value="newsletter">
+                <div class="newsletter-form__field-wrapper">
+                  <div class="field">
+                    <input
+                      id="NewsletterForm--{{ section.id }}"
+                      type="email"
+                      name="contact[email]"
+                      class="field__input"
+                      value="{{ form.email }}"
+                      aria-required="true"
+                      autocorrect="off"
+                      autocapitalize="off"
+                      autocomplete="email"
+                      {% if form.errors %}
+                        autofocus
+                        aria-invalid="true"
+                        aria-describedby="ContactFooter-error"
+                      {% elsif form.posted_successfully? %}
+                        aria-describedby="ContactFooter-success"
+                      {% endif %}
+                      placeholder="{{ 'newsletter.label' | t }}"
+                      required
+                    >
+                    <label class="field__label" for="NewsletterForm--{{ section.id }}">
+                      {{ 'newsletter.label' | t }}
+                    </label>
+                    <button
+                      type="submit"
+                      class="newsletter-form__button field__button"
+                      name="commit"
+                      aria-label="{{ 'newsletter.button_label' | t }}"
+                    >
+                      <span class="svg-wrapper">{{- 'icon-arrow.svg' | inline_asset_content -}}</span>
+                    </button>
+                  </div>
+                  {%- if form.errors -%}
+                    <small class="newsletter-form__message form__message" id="ContactFooter-error">
+                      <span class="svg-wrapper">{{- 'icon-error.svg' | inline_asset_content -}}</span>
+                      {{- form.errors.translated_fields.email | capitalize }}
+                      {{ form.errors.messages.email -}}
+                    </small>
+                  {%- endif -%}
+                </div>
+                {%- if form.posted_successfully? -%}
+                  <p
+                    class="newsletter-form__message newsletter-form__message--success form__message"
+                    id="ContactFooter-success"
+                    tabindex="-1"
+                    autofocus
+                  >
+                    <span class="svg-wrapper">{{- 'icon-success.svg' | inline_asset_content -}}</span>
+                    {{- 'newsletter.success' | t }}
+                  </p>
+                {%- endif -%}
+              {%- endform -%}
+              {%- if block.settings.show_social -%}
+                {%- render 'social-icons', class: 'pp-footer__social' -%}
+              {%- endif -%}
+          {%- endcase -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="pp-footer__bottom color-{{ section.settings.bottom_color_scheme }} gradient">
+    <div class="page-width pp-footer__bottom-inner">
+      <p class="pp-footer__copyright">
+        &copy; {{ shop.name | link_to: routes.root_url }} {{ 'now' | date: '%Y' }}
+        {%- if section.settings.legal_name != blank %} · {{ section.settings.legal_name | escape }}{% endif -%}
+      </p>
+      {%- if section.settings.show_policy -%}
+        <ul class="pp-footer__policies list-unstyled" role="list">
+          {%- for policy in shop.policies -%}
+            {%- if policy != blank -%}
+              <li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      {%- if section.settings.payment_enable -%}
+        <div class="pp-footer__payment">
+          <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
+          <ul class="list list-payment" role="list">
+            {%- for type in shop.enabled_payment_types -%}
+              <li class="list-payment__item">
+                {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer (Petal and Pounce)",
+  "tag": "div",
+  "class": "section",
+  "enabled_on": { "groups": ["footer"] },
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Phone, email and address come from Settings → Store details. Keep them identical to Google Merchant Center Business info."
+    },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "background-2" },
+    { "type": "color_scheme", "id": "bottom_color_scheme", "label": "Bottom bar color scheme", "default": "background-1" },
+    {
+      "type": "text",
+      "id": "legal_name",
+      "label": "Registered business name (optional)",
+      "info": "E.g. your limited company name if it differs from the store name."
+    },
+    { "type": "checkbox", "id": "show_policy", "label": "Show policy links", "default": true },
+    { "type": "checkbox", "id": "payment_enable", "label": "Show payment icons", "default": true },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Top padding", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bottom padding", "default": 40 }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Logo and contact",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "logo", "label": "Footer logo", "info": "Leave empty to use the header logo. A white/light version works best on dark backgrounds." },
+        { "type": "range", "id": "logo_width", "min": 80, "max": 300, "step": 10, "unit": "px", "label": "Logo width", "default": 160 },
+        { "type": "checkbox", "id": "show_phone", "label": "Show phone", "default": true },
+        { "type": "checkbox", "id": "show_email", "label": "Show email", "default": true },
+        { "type": "checkbox", "id": "show_address", "label": "Show address", "default": true },
+        { "type": "richtext", "id": "text", "label": "Extra text", "info": "E.g. opening hours or customer service hours." }
+      ]
+    },
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "info": "Leave empty to use the menu name." },
+        { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "About us" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Tell customers a little about your shop.</p>" }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Join our community" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Get growing tips, new products and offers by email.</p>" },
+        { "type": "checkbox", "id": "show_social", "label": "Show social media icons", "info": "Add links in Theme settings → Social media.", "default": true }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer (Petal and Pounce)",
+      "blocks": [{ "type": "brand" }, { "type": "menu" }, { "type": "newsletter" }]
+    }
+  ]
+}
+{% endschema %}
