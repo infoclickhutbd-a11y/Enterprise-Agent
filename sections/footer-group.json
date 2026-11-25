@@ -28,7 +28,7 @@
           "type": "menu",
           "settings": {
             "heading": "About",
-            "menu": "footer"
+            "menu": "about"
           }
         },
         "menu_help": {
