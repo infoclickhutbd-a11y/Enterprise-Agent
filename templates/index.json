@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -34,7 +43,7 @@
           "type": "point",
           "settings": {
             "icon": "return",
-            "text": "[NUMBER]-day returns",
+            "text": "30 Day Returns",
             "link": "/policies/refund-policy"
           }
         },
@@ -176,7 +185,7 @@
           "settings": {
             "icon": "box",
             "title": "Packed with care",
-            "text": "<p>Every order is packed by hand and dispatched within [X] working days.</p>"
+            "text": "<p>Every order is packed by hand and dispatched within 2 working days.</p>"
           }
         },
         "s3": {
@@ -244,6 +253,8 @@
         "text": "<p>Discover nourishing dried pet treats and plant-based goodness for easy enrichment at home.</p>",
         "button_label": "Shop Dried Pet Treats",
         "button_link": "shopify://collections/dried-flowers",
+        "button_label_2": "",
+        "button_link_2": "",
         "color_scheme": "accent-1",
         "padding_top": 56,
         "padding_bottom": 56
@@ -310,6 +321,17 @@
         "padding_bottom": 56
       }
     },
+    "reviews": {
+      "type": "pp-reviews",
+      "settings": {
+        "eyebrow": "Trusted by our customers",
+        "heading": "What cat owners say",
+        "text": "<p>Honest reviews from real Petal and Pounce customers.</p>",
+        "color_scheme": "background-1",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
     "featured_blog": {
       "type": "featured-blog",
       "name": "t:sections.featured-blog.presets.name",
@@ -342,19 +364,6 @@
       "settings": {
         "include_margins": true
       }
-    },
-    "reviews": {
-      "type": "pp-reviews",
-      "settings": {
-        "eyebrow": "Trusted by our customers",
-        "heading": "What cat owners say",
-        "text": "<p>Honest reviews from real Petal and Pounce customers.</p>",
-        "color_scheme": "background-1",
-        "padding_top": 56,
-        "padding_bottom": 56
-      },
-      "blocks": {},
-      "block_order": []
     }
   },
   "order": [
