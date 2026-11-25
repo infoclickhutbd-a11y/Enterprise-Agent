@@ -281,7 +281,7 @@
           "type": "question",
           "settings": {
             "question": "How long does cat grass last?",
-            "answer": "<p>[How long it stays fresh and how to keep it growing.]</p>"
+            "answer": "<p>Cat grass typically stays fresh for 1–3 weeks. Keep it on a bright windowsill and water regularly without overwatering. Sow a fresh batch every 1–2 weeks for a continuous supply.</p>"
           }
         },
         "q4": {
@@ -295,7 +295,7 @@
           "type": "question",
           "settings": {
             "question": "How do I contact you?",
-            "answer": "<p>Use our <a href=\"/pages/contact\">contact page</a> and we'll reply within [X] working days.</p>"
+            "answer": "<p>Use our <a href=\"/pages/contact\">contact page</a> and we'll reply within 3 working days.</p>"
           }
         }
       },
