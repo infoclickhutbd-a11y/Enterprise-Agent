@@ -1,0 +1,28 @@
+{%- comment -%}
+  Petal and Pounce: shared intro block (eyebrow, heading, text) for pp-* sections.
+  Accepts:
+  - eyebrow {String}
+  - heading {String}
+  - heading_tag {String} 'h1' or 'h2' (default h2)
+  - text {String} richtext
+  - align {String} 'left' | 'center'
+  Usage:
+  {% render 'pp-section-intro', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text, align: 'center' %}
+{%- endcomment -%}
+{%- liquid
+  assign tag = heading_tag | default: 'h2'
+  assign align = align | default: 'center'
+-%}
+{%- if eyebrow != blank or heading != blank or text != blank -%}
+  <div class="pp-intro pp-intro--{{ align }}">
+    {%- if eyebrow != blank -%}
+      <p class="pp-eyebrow">{{ eyebrow | escape }}</p>
+    {%- endif -%}
+    {%- if heading != blank -%}
+      <{{ tag }} class="pp-intro__heading {% if tag == 'h1' %}h1{% else %}h2{% endif %}">{{ heading }}</{{ tag }}>
+    {%- endif -%}
+    {%- if text != blank -%}
+      <div class="pp-intro__text rte">{{ text }}</div>
+    {%- endif -%}
+  </div>
+{%- endif -%}

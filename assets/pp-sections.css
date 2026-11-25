@@ -1,0 +1,234 @@
+/* Petal and Pounce: shared styles for pp-* sections. Mobile-first. */
+
+.pp-section {
+  padding-top: calc(var(--pp-pt, 48px) * 0.75);
+  padding-bottom: calc(var(--pp-pb, 48px) * 0.75);
+}
+@media screen and (min-width: 750px) {
+  .pp-section {
+    padding-top: var(--pp-pt, 48px);
+    padding-bottom: var(--pp-pb, 48px);
+  }
+}
+
+/* Intro (eyebrow / heading / text) */
+.pp-intro {
+  max-width: 68rem;
+  margin: 0 auto 3.2rem;
+}
+.pp-intro--center {
+  text-align: center;
+}
+.pp-intro--left {
+  margin-left: 0;
+  text-align: left;
+}
+.pp-eyebrow {
+  margin: 0 0 1rem;
+  font-size: 1.2rem;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+.pp-intro__heading {
+  margin: 0 0 1.2rem;
+}
+.pp-intro__text {
+  margin: 0;
+  opacity: 0.85;
+}
+.pp-intro__text > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Buttons row */
+.pp-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-top: 2.4rem;
+}
+.pp-buttons--center {
+  justify-content: center;
+}
+.pp-buttons .button {
+  gap: 0.6rem;
+}
+
+/* ---------- Image with text (organic blob) ---------- */
+.pp-blob {
+  display: grid;
+  gap: 3.2rem;
+  align-items: center;
+}
+@media screen and (min-width: 750px) {
+  .pp-blob {
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+  }
+  .pp-blob--image-left .pp-blob__media {
+    order: -1;
+  }
+}
+.pp-blob__media {
+  position: relative;
+  max-width: 52rem;
+  width: 100%;
+  margin: 0 auto;
+}
+.pp-blob__media img,
+.pp-blob__media .placeholder-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+.pp-blob__media--blob img,
+.pp-blob__media--blob .placeholder-svg {
+  border-radius: 58% 42% 46% 54% / 47% 58% 42% 53%;
+}
+.pp-blob__media--rounded img,
+.pp-blob__media--rounded .placeholder-svg {
+  border-radius: 2.4rem;
+}
+.pp-blob__media--circle img,
+.pp-blob__media--circle .placeholder-svg {
+  border-radius: 50%;
+}
+.pp-blob__content .pp-intro {
+  margin-bottom: 0;
+}
+@media screen and (max-width: 749px) {
+  .pp-blob__content {
+    text-align: center;
+  }
+  .pp-blob__content .pp-intro--left {
+    text-align: center;
+  }
+  .pp-blob__content .pp-buttons {
+    justify-content: center;
+  }
+}
+
+/* ---------- Icon cards (how it works) ---------- */
+.pp-cards {
+  display: grid;
+  gap: 1.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media screen and (min-width: 750px) {
+  .pp-cards {
+    grid-template-columns: repeat(var(--pp-cols, 3), minmax(0, 1fr));
+    gap: 2.4rem;
+  }
+}
+.pp-card {
+  padding: 3.2rem 2.4rem;
+  border-radius: 0.8rem;
+  text-align: center;
+}
+.pp-card .svg-wrapper {
+  display: inline-flex;
+  width: 3.6rem;
+  height: 3.6rem;
+  margin-bottom: 1.6rem;
+}
+.pp-card .svg-wrapper svg {
+  width: 100%;
+  height: 100%;
+}
+.pp-card__title {
+  margin: 0 0 1rem;
+}
+.pp-card__text {
+  margin: 0;
+  font-size: 1.4rem;
+  opacity: 0.85;
+}
+
+/* ---------- FAQ ---------- */
+.pp-faq__list {
+  max-width: 76rem;
+  margin: 0 auto;
+  display: grid;
+  gap: 1.2rem;
+}
+.pp-faq__item {
+  border-radius: 0.8rem;
+}
+.pp-faq__item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  padding: 1.6rem 2rem;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+}
+.pp-faq__item summary::-webkit-details-marker {
+  display: none;
+}
+.pp-faq__item summary .svg-wrapper {
+  flex-shrink: 0;
+  width: 1.2rem;
+  transition: transform var(--duration-default, 0.2s) ease;
+}
+.pp-faq__item[open] summary .svg-wrapper {
+  transform: rotate(180deg);
+}
+.pp-faq__item summary:focus-visible {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+  outline-offset: 0.2rem;
+}
+.pp-faq__answer {
+  padding: 0 2rem 1.8rem;
+}
+.pp-faq__answer > *:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Logo row ---------- */
+.pp-logos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media screen and (min-width: 750px) {
+  .pp-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4rem;
+  }
+}
+.pp-logo {
+  text-align: center;
+}
+.pp-logo a {
+  color: inherit;
+  text-decoration: none;
+}
+.pp-logo img,
+.pp-logo .placeholder-svg {
+  display: block;
+  width: 9.6rem;
+  height: 9.6rem;
+  margin: 0 auto 1rem;
+  object-fit: contain;
+}
+.pp-logo__label {
+  font-size: 1.3rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-faq__item summary .svg-wrapper {
+    transition: none;
+  }
+}
