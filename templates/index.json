@@ -267,14 +267,14 @@
           "type": "question",
           "settings": {
             "question": "Do you deliver across the UK?",
-            "answer": "<p>Yes. Delivery is free on every UK order. Orders are dispatched within [X] working days and usually arrive in [X–X] working days.</p>"
+            "answer": "<p>Yes. Delivery is free on every UK order. Orders are dispatched within 2 working days and usually arrive in 3-5 working days after that.</p>"
           }
         },
         "q2": {
           "type": "question",
           "settings": {
             "question": "How do I grow my cat grass?",
-            "answer": "<p>[Short growing instructions: soak, water, light, days until ready.]</p>"
+            "answer": "<p>Sow seeds evenly over a shallow layer of compost and lightly cover. Water gently and place on a bright, warm windowsill. Keep moist but not waterlogged.</p><p>Your cat grass should be ready in 7–14 days. Sow regularly for a continuous supply.</p>"
           }
         },
         "q3": {
