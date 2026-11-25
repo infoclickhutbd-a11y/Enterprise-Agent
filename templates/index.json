@@ -328,20 +328,6 @@
         "padding_bottom": 36
       }
     },
-    "video": {
-      "type": "video",
-      "settings": {
-        "heading": "Take a look at what your cat grass could look like",
-        "heading_size": "h2",
-        "enable_video_looping": true,
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-        "description": "Cat-grass-in-a-pot",
-        "full_width": false,
-        "color_scheme": "",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "apps": {
       "type": "apps",
       "blocks": {
@@ -383,7 +369,6 @@
     "faq",
     "reviews",
     "featured_blog",
-    "video",
     "apps"
   ]
 }
