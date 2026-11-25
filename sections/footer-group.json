@@ -8,7 +8,7 @@
         "brand": {
           "type": "brand",
           "settings": {
-            "logo_width": 300,
+            "logo_width": 180,
             "show_phone": true,
             "show_email": true,
             "show_address": true,
