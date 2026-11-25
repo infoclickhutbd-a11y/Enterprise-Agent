@@ -356,6 +356,19 @@
       "settings": {
         "include_margins": true
       }
+    },
+    "reviews": {
+      "type": "pp-reviews",
+      "settings": {
+        "eyebrow": "Trusted by our customers",
+        "heading": "What cat owners say",
+        "text": "<p>Honest reviews from real Petal and Pounce customers.</p>",
+        "color_scheme": "background-1",
+        "padding_top": 56,
+        "padding_bottom": 56
+      },
+      "blocks": {},
+      "block_order": []
     }
   },
   "order": [
@@ -368,6 +381,7 @@
     "featured_collection",
     "treats",
     "faq",
+    "reviews",
     "featured_blog",
     "video",
     "apps"

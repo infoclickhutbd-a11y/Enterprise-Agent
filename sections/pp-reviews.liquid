@@ -1,0 +1,47 @@
+{%- comment -%}
+  Petal and Pounce: Reviews section (heading + app block slot).
+  Add the Judge.me "Featured Carousel" (or similar) app block in the Theme Editor.
+  Shows only genuine reviews from the app. The section stays hidden until an app block is added.
+{%- endcomment -%}
+{%- if section.blocks.size > 0 -%}
+  {{ 'pp-sections.css' | asset_url | stylesheet_tag }}
+
+  <div class="color-{{ section.settings.color_scheme }} gradient">
+    <div
+      class="page-width pp-section"
+      style="--pp-pt: {{ section.settings.padding_top }}px; --pp-pb: {{ section.settings.padding_bottom }}px;"
+    >
+      {%- render 'pp-section-intro',
+        eyebrow: section.settings.eyebrow,
+        heading: section.settings.heading,
+        text: section.settings.text
+      -%}
+      {%- for block in section.blocks -%}
+        <div {{ block.shopify_attributes }}>{% render block %}</div>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Customer reviews",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Click Add block and choose your reviews app's carousel (e.g. Judge.me Featured Carousel). This section is hidden until a block is added."
+    },
+    { "type": "text", "id": "eyebrow", "label": "Small text above heading", "default": "Trusted by our customers" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "What cat owners say" },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "background-1" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Top padding", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bottom padding", "default": 56 }
+  ],
+  "blocks": [{ "type": "@app" }],
+  "presets": [{ "name": "Customer reviews" }]
+}
+{% endschema %}
