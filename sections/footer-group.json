@@ -21,13 +21,14 @@
             "show_phone": true,
             "show_email": true,
             "show_address": true,
-            "text": "<p>[Customer service hours, e.g. Monday to Friday, 9am to 5pm]</p>"
+            "text": "<p>Customer service hours: Monday to Friday, 9am to 3pm</p>"
           }
         },
         "menu_about": {
           "type": "menu",
           "settings": {
-            "heading": "About"
+            "heading": "About",
+            "menu": "footer"
           }
         },
         "menu_help": {
