@@ -288,7 +288,7 @@
           "type": "question",
           "settings": {
             "question": "Can I return my order?",
-            "answer": "<p>[Return window, condition and how to start a return. Must match your Refund policy.]</p>"
+            "answer": "<p>Return eligibility depends on the items in your order.</p><p>Where returns are accepted, items must be returned in the same condition they were received, &nbsp;unused, with tags, and in their original packaging or as otherwise indicated in the return instructions. We may reduce your refund if the item has been used, damaged, or handled more than necessary.</p><p>You may request a return within 30 days after your item is delivered.</p>"
           }
         },
         "q5": {
