@@ -1,21 +1,29 @@
 {%- comment -%}
   Petal and Pounce: Footer
-  Columns built from blocks: Brand & contact, Menu, Newsletter, Text.
-  Bottom bar: copyright, policy links (required for Google Merchant Center), payment icons.
+  Layout: [Logo + contact] [About menu] [Help menu] [Newsletter]
+  Bottom row: © registered name + year, policy links | payment icons.
 
-  Contact details come from Shopify admin (Settings → Store details) so they always
-  match checkout and should be kept identical to Google Merchant Center Business info.
+  Phone, email and address come from Shopify admin (Settings → Store details), so they
+  always match checkout. Keep them identical to Google Merchant Center Business info.
 {%- endcomment -%}
-{{ 'pp-sections.css' | asset_url | stylesheet_tag }}
-{{ 'component-newsletter.css' | asset_url | stylesheet_tag }}
+{{ 'pp-footer.css' | asset_url | stylesheet_tag }}
 {{ 'component-list-payment.css' | asset_url | stylesheet_tag }}
 {{ 'component-list-social.css' | asset_url | stylesheet_tag }}
 
-<footer class="pp-footer color-{{ section.settings.color_scheme }} gradient">
-  <div
-    class="page-width pp-section"
-    style="--pp-pt: {{ section.settings.padding_top }}px; --pp-pb: {{ section.settings.padding_bottom }}px;"
-  >
+<footer
+  class="pp-footer"
+  style="
+    --pp-f-bg: {{ section.settings.bg_color }};
+    --pp-f-heading: {{ section.settings.heading_color }};
+    --pp-f-text: {{ section.settings.text_color }};
+    --pp-f-link: {{ section.settings.text_color }};
+    --pp-f-btn-bg: {{ section.settings.button_bg }};
+    --pp-f-btn-text: {{ section.settings.button_text }};
+    --pp-pt: {{ section.settings.padding_top }}px;
+    --pp-pb: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="page-width pp-footer__inner">
     <div class="pp-footer__grid" style="--pp-cols: {{ section.blocks.size | at_least: 1 | at_most: 5 }};">
       {%- for block in section.blocks -%}
         <div class="pp-footer__col pp-footer__col--{{ block.type }}" {{ block.shopify_attributes }}>
@@ -27,57 +35,58 @@
                 <a href="{{ routes.root_url }}" class="pp-footer__logo">
                   {{
                     logo
-                    | image_url: width: 400
+                    | image_url: width: 600
                     | image_tag:
                       loading: 'lazy',
-                      widths: '200, 300, 400',
-                      sizes: '200px',
+                      widths: '300, 450, 600',
+                      sizes: '300px',
                       style: logo_style,
                       alt: shop.name
                   }}
                 </a>
               {%- else -%}
-                <p class="pp-footer__shop-name h3">{{ shop.name | escape }}</p>
+                <p class="pp-footer__shop-name h2">{{ shop.name | escape }}</p>
               {%- endif -%}
 
-              <ul class="pp-footer__contact list-unstyled" role="list">
+              <ul class="pp-footer__contact" role="list">
                 {%- if block.settings.show_phone and shop.phone != blank -%}
                   <li>
-                    <span class="pp-footer__label">Phone:</span>
-                    <a href="tel:{{ shop.phone | remove: ' ' }}">{{ shop.phone }}</a>
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+                    <a href="tel:{{ shop.phone | remove: ' ' }}"><span class="visually-hidden">Phone: </span>{{ shop.phone }}</a>
                   </li>
                 {%- endif -%}
                 {%- if block.settings.show_email and shop.email != blank -%}
                   <li>
-                    <span class="pp-footer__label">Email:</span>
-                    <a href="mailto:{{ shop.email }}">{{ shop.email }}</a>
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="m3 6 9 7 9-7"/></svg>
+                    <a href="mailto:{{ shop.email }}"><span class="visually-hidden">Email: </span>{{ shop.email }}</a>
                   </li>
                 {%- endif -%}
                 {%- if block.settings.show_address and shop.address.address1 != blank -%}
                   <li>
-                    <span class="pp-footer__label">Address:</span>
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
                     <address>
+                      <span class="visually-hidden">Address: </span>
                       {{- shop.address.address1 -}}
                       {%- if shop.address.address2 != blank %}, {{ shop.address.address2 }}{% endif -%}
                       , {{ shop.address.city }}
                       {%- if shop.address.zip != blank %}, {{ shop.address.zip }}{% endif -%}
-                      , {{ shop.address.country -}}
                     </address>
                   </li>
                 {%- endif -%}
               </ul>
               {%- if block.settings.text != blank -%}
-                <div class="pp-footer__text rte">{{ block.settings.text }}</div>
+                <div class="pp-footer__text">{{ block.settings.text }}</div>
               {%- endif -%}
 
             {%- when 'menu' -%}
               {%- assign menu = block.settings.menu -%}
               {%- assign title = block.settings.heading | default: menu.title -%}
-              {%- if title != blank -%}
-                <h2 class="pp-footer__heading">{{ title | escape }}</h2>
-              {%- endif -%}
+              {%- comment -%} Column stays empty until a menu with links is chosen. {%- endcomment -%}
               {%- if menu.links.size > 0 -%}
-                <ul class="pp-footer__links list-unstyled" role="list">
+                {%- if title != blank -%}
+                  <h2 class="pp-footer__heading">{{ title | escape }}</h2>
+                {%- endif -%}
+                <ul class="pp-footer__links" role="list">
                   {%- for link in menu.links -%}
                     <li>
                       <a
@@ -97,68 +106,51 @@
               {%- if block.settings.heading != blank -%}
                 <h2 class="pp-footer__heading">{{ block.settings.heading | escape }}</h2>
               {%- endif -%}
-              <div class="pp-footer__text rte">{{ block.settings.text }}</div>
+              <div class="pp-footer__text">{{ block.settings.text }}</div>
 
             {%- when 'newsletter' -%}
               {%- if block.settings.heading != blank -%}
                 <h2 class="pp-footer__heading">{{ block.settings.heading | escape }}</h2>
               {%- endif -%}
               {%- if block.settings.text != blank -%}
-                <div class="pp-footer__text rte">{{ block.settings.text }}</div>
+                <div class="pp-footer__text">{{ block.settings.text }}</div>
               {%- endif -%}
-              {%- form 'customer', id: 'ContactFooter', class: 'newsletter-form pp-footer__newsletter' -%}
+              {%- form 'customer', id: 'ContactFooter', class: 'pp-footer__form' -%}
                 <input type="hidden" name="contact[tags]" value="newsletter">
-                <div class="newsletter-form__field-wrapper">
-                  <div class="field">
-                    <input
-                      id="NewsletterForm--{{ section.id }}"
-                      type="email"
-                      name="contact[email]"
-                      class="field__input"
-                      value="{{ form.email }}"
-                      aria-required="true"
-                      autocorrect="off"
-                      autocapitalize="off"
-                      autocomplete="email"
-                      {% if form.errors %}
-                        autofocus
-                        aria-invalid="true"
-                        aria-describedby="ContactFooter-error"
-                      {% elsif form.posted_successfully? %}
-                        aria-describedby="ContactFooter-success"
-                      {% endif %}
-                      placeholder="{{ 'newsletter.label' | t }}"
-                      required
-                    >
-                    <label class="field__label" for="NewsletterForm--{{ section.id }}">
-                      {{ 'newsletter.label' | t }}
-                    </label>
-                    <button
-                      type="submit"
-                      class="newsletter-form__button field__button"
-                      name="commit"
-                      aria-label="{{ 'newsletter.button_label' | t }}"
-                    >
-                      <span class="svg-wrapper">{{- 'icon-arrow.svg' | inline_asset_content -}}</span>
-                    </button>
-                  </div>
-                  {%- if form.errors -%}
-                    <small class="newsletter-form__message form__message" id="ContactFooter-error">
-                      <span class="svg-wrapper">{{- 'icon-error.svg' | inline_asset_content -}}</span>
-                      {{- form.errors.translated_fields.email | capitalize }}
-                      {{ form.errors.messages.email -}}
-                    </small>
-                  {%- endif -%}
-                </div>
-                {%- if form.posted_successfully? -%}
-                  <p
-                    class="newsletter-form__message newsletter-form__message--success form__message"
-                    id="ContactFooter-success"
-                    tabindex="-1"
-                    autofocus
-                  >
-                    <span class="svg-wrapper">{{- 'icon-success.svg' | inline_asset_content -}}</span>
-                    {{- 'newsletter.success' | t }}
+                <label class="visually-hidden" for="NewsletterForm--{{ section.id }}">
+                  {{- block.settings.placeholder | default: 'Enter your email' | escape -}}
+                </label>
+                <input
+                  id="NewsletterForm--{{ section.id }}"
+                  class="pp-footer__input"
+                  type="email"
+                  name="contact[email]"
+                  value="{{ form.email }}"
+                  placeholder="{{ block.settings.placeholder | default: 'Enter your email' | escape }}"
+                  autocomplete="email"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  required
+                  aria-required="true"
+                  {% if form.errors %}
+                    aria-invalid="true"
+                    aria-describedby="ContactFooter-error"
+                  {% elsif form.posted_successfully? %}
+                    aria-describedby="ContactFooter-success"
+                  {% endif %}
+                >
+                <button type="submit" class="pp-footer__submit">
+                  {{- block.settings.button_label | escape }}
+                  <span aria-hidden="true">&rarr;</span>
+                </button>
+                {%- if form.errors -%}
+                  <p class="pp-footer__message" id="ContactFooter-error" role="alert">
+                    {{ form.errors.translated_fields.email | capitalize }}
+                    {{ form.errors.messages.email }}
+                  </p>
+                {%- elsif form.posted_successfully? -%}
+                  <p class="pp-footer__message" id="ContactFooter-success" role="status">
+                    {{ 'newsletter.success' | t }}
                   </p>
                 {%- endif -%}
               {%- endform -%}
@@ -169,23 +161,28 @@
         </div>
       {%- endfor -%}
     </div>
-  </div>
 
-  <div class="pp-footer__bottom color-{{ section.settings.bottom_color_scheme }} gradient">
-    <div class="page-width pp-footer__bottom-inner">
-      <p class="pp-footer__copyright">
-        &copy; {{ shop.name | link_to: routes.root_url }} {{ 'now' | date: '%Y' }}
-        {%- if section.settings.legal_name != blank %} · {{ section.settings.legal_name | escape }}{% endif -%}
-      </p>
-      {%- if section.settings.show_policy -%}
-        <ul class="pp-footer__policies list-unstyled" role="list">
-          {%- for policy in shop.policies -%}
-            {%- if policy != blank -%}
-              <li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>
-            {%- endif -%}
-          {%- endfor -%}
-        </ul>
-      {%- endif -%}
+    <div class="pp-footer__bottom">
+      <div class="pp-footer__legal">
+        <p>
+          &copy;
+          {% if section.settings.legal_name != blank -%}
+            {{ section.settings.legal_name | escape }}
+          {%- else -%}
+            {{ shop.name | escape }}
+          {%- endif %}
+          {{ 'now' | date: '%Y' }}
+        </p>
+        {%- if section.settings.show_policy -%}
+          <ul class="pp-footer__policies" role="list">
+            {%- for policy in shop.policies -%}
+              {%- if policy != blank -%}
+                <li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
       {%- if section.settings.payment_enable -%}
         <div class="pp-footer__payment">
           <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
@@ -214,18 +211,23 @@
       "type": "paragraph",
       "content": "Phone, email and address come from Settings → Store details. Keep them identical to Google Merchant Center Business info."
     },
-    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "background-2" },
-    { "type": "color_scheme", "id": "bottom_color_scheme", "label": "Bottom bar color scheme", "default": "background-1" },
     {
       "type": "text",
       "id": "legal_name",
-      "label": "Registered business name (optional)",
-      "info": "E.g. your limited company name if it differs from the store name."
+      "label": "Name shown after ©",
+      "info": "E.g. your registered company name, such as 'Example Ltd T/A Petal and Pounce'. Leave empty to use the store name."
     },
     { "type": "checkbox", "id": "show_policy", "label": "Show policy links", "default": true },
     { "type": "checkbox", "id": "payment_enable", "label": "Show payment icons", "default": true },
-    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Top padding", "default": 56 },
-    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bottom padding", "default": 40 }
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#343f4e" },
+    { "type": "color", "id": "heading_color", "label": "Headings and contact details", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Links and text", "default": "#d5d9df" },
+    { "type": "color", "id": "button_bg", "label": "Button background", "default": "#7a9e8c" },
+    { "type": "color", "id": "button_text", "label": "Button text", "default": "#ffffff" },
+    { "type": "header", "content": "Padding" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Top padding", "default": 88 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Bottom padding", "default": 48 }
   ],
   "blocks": [
     {
@@ -233,12 +235,12 @@
       "name": "Logo and contact",
       "limit": 1,
       "settings": [
-        { "type": "image_picker", "id": "logo", "label": "Footer logo", "info": "Leave empty to use the header logo. A white/light version works best on dark backgrounds." },
-        { "type": "range", "id": "logo_width", "min": 80, "max": 300, "step": 10, "unit": "px", "label": "Logo width", "default": 160 },
+        { "type": "image_picker", "id": "logo", "label": "Footer logo", "info": "Use a white/light version on dark backgrounds. Leave empty to use the header logo." },
+        { "type": "range", "id": "logo_width", "min": 80, "max": 400, "step": 10, "unit": "px", "label": "Logo width", "default": 300 },
         { "type": "checkbox", "id": "show_phone", "label": "Show phone", "default": true },
         { "type": "checkbox", "id": "show_email", "label": "Show email", "default": true },
         { "type": "checkbox", "id": "show_address", "label": "Show address", "default": true },
-        { "type": "richtext", "id": "text", "label": "Extra text", "info": "E.g. opening hours or customer service hours." }
+        { "type": "richtext", "id": "text", "label": "Extra text", "info": "E.g. customer service hours." }
       ]
     },
     {
@@ -264,14 +266,16 @@
       "settings": [
         { "type": "text", "id": "heading", "label": "Heading", "default": "Join our community" },
         { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Get growing tips, new products and offers by email.</p>" },
-        { "type": "checkbox", "id": "show_social", "label": "Show social media icons", "info": "Add links in Theme settings → Social media.", "default": true }
+        { "type": "text", "id": "placeholder", "label": "Email field placeholder", "default": "Enter your email" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Join the Community" },
+        { "type": "checkbox", "id": "show_social", "label": "Show social media icons", "default": false }
       ]
     }
   ],
   "presets": [
     {
       "name": "Footer (Petal and Pounce)",
-      "blocks": [{ "type": "brand" }, { "type": "menu" }, { "type": "newsletter" }]
+      "blocks": [{ "type": "brand" }, { "type": "menu" }, { "type": "menu" }, { "type": "newsletter" }]
     }
   ]
 }

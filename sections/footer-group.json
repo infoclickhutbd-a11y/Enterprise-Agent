@@ -8,11 +8,17 @@
         "brand": {
           "type": "brand",
           "settings": {
-            "logo_width": 160,
+            "logo_width": 300,
             "show_phone": true,
             "show_email": true,
             "show_address": true,
             "text": "<p>[Customer service hours, e.g. Monday to Friday, 9am to 5pm]</p>"
+          }
+        },
+        "menu_about": {
+          "type": "menu",
+          "settings": {
+            "heading": "About"
           }
         },
         "menu_help": {
@@ -25,25 +31,31 @@
         "newsletter": {
           "type": "newsletter",
           "settings": {
-            "heading": "Join our community",
-            "text": "<p>Get cat grass growing tips, new products and offers by email.</p>",
-            "show_social": true
+            "heading": "Join the Petal and Pounce community",
+            "text": "<p>Get emails with cat grass growing tips, new arrivals and offers from Petal and Pounce.</p>",
+            "placeholder": "Enter your email",
+            "button_label": "Join the Community",
+            "show_social": false
           }
         }
       },
       "block_order": [
         "brand",
+        "menu_about",
         "menu_help",
         "newsletter"
       ],
       "settings": {
-        "color_scheme": "background-2",
-        "bottom_color_scheme": "scheme-fdeda06f-3cbe-4d7f-9a60-97fdf191ce92",
         "legal_name": "",
         "show_policy": true,
         "payment_enable": true,
-        "padding_top": 56,
-        "padding_bottom": 40
+        "bg_color": "#343f4e",
+        "heading_color": "#ffffff",
+        "text_color": "#d5d9df",
+        "button_bg": "#7a9e8c",
+        "button_text": "#ffffff",
+        "padding_top": 88,
+        "padding_bottom": 48
       }
     }
   },
